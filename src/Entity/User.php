@@ -4,15 +4,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
  * Class User
  * @package App\Entity
  * @ORM\Entity
+ * @method string getUserIdentifier()
  */
 
-class User
+class User implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
 {
     /**
      * @var int|null
@@ -96,5 +98,31 @@ class User
         $this->name = $name;
     }
 
+    /**
+     * @return string[]
+     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
 
+    public function getSalt()
+    {
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @return String
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function __call($name, $arguments)
+    {
+    }
 }

@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class Post
@@ -21,18 +22,21 @@ class Post
      * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"get"})
      */
     private ?int $id;
 
     /**
      * @var String
      * @ORM\Column(type="text")
+     * @Groups({"get"})
      */
     private String $content;
 
     /**
      * @var DateTimeInterface
      * @ORM\Column(type="date_immutable")
+     * @Groups({"get"})
      */
     private DateTimeInterface $publishedAt;
 
@@ -49,6 +53,11 @@ class Post
      */
     private Collection $likedBy;
 
+    /**
+     * @param string $content
+     * @param User $author
+     * @return static
+     */
     public static function create(string $content, User $author):self
     {
         $post = new  Post();

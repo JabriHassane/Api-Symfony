@@ -54,6 +54,22 @@ class Comment
         $this->publishedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * @param string $comment
+     * @param User $author
+     * @param Post $post
+     * @return static
+     */
+    public static function create(string $comment, User $author, Post $post):self
+    {
+        $commant = new  self();
+        $commant->comment = $comment;
+        $commant->author = $author;
+        $commant->post = $post;
+
+        return $commant;
+    }
+
 
     /**
      * @return int|null

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -54,6 +55,11 @@ class AppFixtures extends Fixture
                     $post->likeBy($userCanLike);
                 }
                 $manager->persist($post);
+
+                for($k=1 ; $k<=5 ; $k++){
+                    $comment = Comment::create("Commantaire ".$k , $users[array_rand($users)] , $post);
+                    $manager->persist($comment);
+                }
             }
         }
 
